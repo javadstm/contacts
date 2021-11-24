@@ -6,7 +6,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="{% static 'style-edit.css' %}" />
-{{ contact.last_name }}
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
@@ -22,7 +21,7 @@
   <body>
     <div class="container">
       <header class="hero">
-        <a href="{% url 'index' %}">
+        <a href="{% url 'index'%}">
           <i class="fas fa-chevron-circle-left back-btn"></i>
         </a>
 
@@ -32,6 +31,16 @@
       </header>
         <form action="" method="POST">
             {% csrf_token %}
+
+       {% if form.errors %}
+       {% for field in form %}
+           {% for error in field.errors %}
+              <div class="alert alert-danger">
+                   <strong>{{ error|escape }}</strong>
+              </div>
+           {% endfor %}
+       {% endfor %}
+    {% endif %}
 
       <section class="contact-info">
         <div class="info-line">

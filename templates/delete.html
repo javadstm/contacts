@@ -19,12 +19,12 @@
 
 	<div class="container">
 		<header class="hero">
-			<a href="{% url 'edit' contact.id %}">
+			<a href="{% url 'edit' contacts.id %}">
 				<i class="fas fa-chevron-circle-left back-btn"></i>
 			</a>
 			<div class="hero-info">
-				<h1 class="name">{{ contact.first_name }}</h1>
-				<p class="relationship-hero">{{ contact.last_name }}</p>
+				<h1 class="name">{{ contacts.first_name }}</h1>
+				<p class="relationship-hero">{{ contacts.last_name }}</p>
 			</div>
 		</header>
         <form method="POST">

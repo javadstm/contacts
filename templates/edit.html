@@ -19,17 +19,20 @@
 	<div class="container">
 		<header class="hero">
 			
-			<a href="{% url 'profile' contact.id %}">
+			<a href="{% url 'profile' contacts.id %}">
 			     <i class="fas fa-chevron-circle-left back-btn"></i>
 			</a>
 
 			<div class="hero-info">
-				<h1 class="name">{{ contact.last_name }}</h1>
+				<h1 class="name">{{ contacts.last_name }}</h1>
 				<p class="relationship-hero">{{ contact.first_name }}</p>
 			</div>
 		</header>
         <form action="" method="POST">
             {% csrf_token %}
+            {% if form.errors %}
+            {{ form.errors }}
+            {% endif %}
 
 		<section class="contact-info">
 
@@ -40,7 +43,7 @@
             class="type"
             name="first_name"
             placeholder="First Name"
-            value="{{ contact.first_name }}"
+            value="{{ contacts.first_name }}"
           />			</div>
 
 			<div class="info-line">
@@ -50,28 +53,28 @@
             class="type"
             name="last_name"
             placeholder="Last Name"
-            value="{{ contact.last_name }}"
+            value="{{ contacts.last_name }}"
           />			</div>
 
 		
 
 			<div class="info-line">
 				<i class="fas fa-sms icon-gradient"></i>
-				<input type="text" class="type" name="phone_number" placeholder="Phone Number" value="{{ contact.phone_number }}">
+				<input type="text" class="type" name="phone_number" placeholder="Phone Number" value="{{ contacts.phone_number }}">
 			</div>
 
 			
 
 			<div  class="info-line">
 				<i class="fas fa-envelope icon-gradient"></i>
-				<input type="text" class="type" name="email" placeholder="Email" value="{{ contact.email }}">
+				<input type="text" class="type" name="email" placeholder="Email" value="{{ contacts.email }}">
 			</div>
 
 			
 
 			<div class="info-line">
 				<i class="fas fa-map-marker-alt icon-gradient location"></i>
-				<input type="text" class="type" name="address" placeholder="Address" value="{{ contact.address }}">
+				<input type="text" class="type" name="address" placeholder="Address" value="{{ contacts.address }}">
 			</div>
 		</section>
 
@@ -85,7 +88,7 @@
             </form>
 
         <section class="button-container">
-			<a href="{% url 'delete' contact.id %}">
+			<a href="{% url 'delete' contacts.id %}">
 				<div class="update-contact">
 					<i class="fas fa-trash icon-gradient"></i>
 					<button class="button">Delete Contact</button>
