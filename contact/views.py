@@ -1,36 +1,30 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate,login,logout
-from django.contrib import messages
-from .models import contact
-from .forms import ContactForm
-from django.contrib.auth.decorators import login_required
+
 from .decorators import unauthenticated_user
+from .forms import ContactForm
+from .models import contact
+
 
 # Create your views here.
 
-
-@unauthenticated_user
 def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'account created  successfuly')
-            # user= form.cleaned_data.get('username')
-            # login(request,user)
-            return redirect('/login')
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                raw_password = form.cleaned_data.get('password1')
+                user = authenticate(username=username, password=raw_password)
+                login(request, user)
+                return redirect('index')
         else:
-            context = {'errors': form.errors}
-
-            return render(request, 'signup.html', context)
-
-    form = UserCreationForm()
-    context = {'form': form}
-    return render(request, 'signup.html', context)
-
-
+            form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
 
 @unauthenticated_user
 def loginn(request):
